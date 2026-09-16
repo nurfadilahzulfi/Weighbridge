@@ -33,7 +33,8 @@ namespace Weighbridge.XML
                             new XElement("BAUD_RATE", wbConfig.baudRate ?? ""),
                             new XElement("DATA_BITS", wbConfig.dataBits ?? ""),
                             new XElement("READ_TIMEOUT", wbConfig.readTimeout),
-                            new XElement("WRITE_TIMEOUT", wbConfig.writeTimeout)
+                            new XElement("WRITE_TIMEOUT", wbConfig.writeTimeout),
+                            new XElement("PREFIX", wbConfig.prefix)
                         ),
                         new XElement("SBO_DATABASE",
                             new XElement("DATABASE_SERVER_TYPE", sboConfig.serverType ?? ""),
@@ -67,7 +68,8 @@ namespace Weighbridge.XML
                 baudRate = wbNode?.Element("BAUD_RATE")?.Value ?? "",
                 dataBits = wbNode?.Element("DATA_BITS")?.Value ?? "",
                 readTimeout = int.TryParse(wbNode?.Element("READ_TIMEOUT")?.Value, out int readTimeout) ? readTimeout : 0,
-                writeTimeout = int.TryParse(wbNode?.Element("WRITE_TIMEOUT")?.Value, out int writeTimeout) ? writeTimeout : 0
+                writeTimeout = int.TryParse(wbNode?.Element("WRITE_TIMEOUT")?.Value, out int writeTimeout) ? writeTimeout : 0,
+                prefix = wbNode?.Element("PREFIX")?.Value ?? ""
             };
 
             var sboConfig = new SBOConfig

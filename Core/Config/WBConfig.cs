@@ -13,5 +13,6 @@ namespace Weighbridge.Core.Config
         public string dataBits { get; set; }
         public int readTimeout { get; set; }
         public int writeTimeout { get; set; }
+        public string prefix { get; set; }
     }
 }

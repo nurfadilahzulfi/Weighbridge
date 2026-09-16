@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Weighbridge.Core.Config;
 
 namespace Weighbridge.Connection
 {
@@ -12,18 +13,19 @@ namespace Weighbridge.Connection
     {
         private SerialPort _serialPort;
         public event Action<double> OnWeightReceived;
+        public event Action<string> OnRawDataReceived;
 
         public bool IsConnected => _serialPort?.IsOpen ?? false;
 
-        public WBConnection(ModGlobal modGlobal)
+        public WBConnection(WBConfig config)
         {
             _serialPort = new SerialPort();
-            _serialPort.PortName = modGlobal.portName;
-            _serialPort.BaudRate = Convert.ToInt32(modGlobal.baudRate);
-            _serialPort.Parity = Parity.None;
-            _serialPort.DataBits = Convert.ToInt32(modGlobal.dataBits);
+            _serialPort.PortName = config.portName;
+            _serialPort.BaudRate = Convert.ToInt32(config.baudRate);
+            _serialPort.Parity = Parity.Even;
+            _serialPort.DataBits = Convert.ToInt32(config.dataBits);
             _serialPort.StopBits = StopBits.One;
-            _serialPort.Handshake = Handshake.None;
+            //_serialPort.Handshake = Handshake.None;
 
             //_serialPort.DataReceived += _serialPort_DataReceived;
         }
@@ -37,9 +39,17 @@ namespace Weighbridge.Connection
                 {
                     try
                     {
-                        string raw = _serialPort.ReadLine();
-                        double? weight = ParseWeight(raw);
+                        string raw = _serialPort.ReadExisting();
 
+                        if (string.IsNullOrWhiteSpace(raw))
+                        {
+                            OnRawDataReceived?.Invoke("No data received");  // fire event with message
+                            return;
+                        }
+
+                        OnRawDataReceived?.Invoke(raw);
+
+                        double? weight = ParseWeight(raw);
                         if (weight.HasValue)
                             OnWeightReceived?.Invoke(weight.Value);
                     }

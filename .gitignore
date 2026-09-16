@@ -1,0 +1,32 @@
+## Visual Studio cache & user files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.sqlite
+
+## Build outputs
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+
+## NuGet Packages
+packages/
+*.nupkg
+
+## Keep required project libraries and reports
+!lib/
+!lib/*.dll
+!Assets/
+!Assets/**
+!Weighbridge Tiket.rpt
+
+## Ignore all logs & sensitive configs anywhere
+*.log
+**/*.log
+dev_rfc.log
+**/dev_rfc.log
+Config.xml
+**/Config.xml

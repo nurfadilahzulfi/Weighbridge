@@ -13,6 +13,7 @@ namespace Weighbridge
         public string portName { get; set; }
         public string baudRate { get; set; }
         public string dataBits { get; set; }
+        public string prefix { get; set; }
         public string serverType { get; set; }
         public string serverName { get; set; }
         public string database { get; set; }
