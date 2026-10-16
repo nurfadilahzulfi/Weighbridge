@@ -73,7 +73,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Refresh.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\tanimas.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
@@ -179,11 +179,40 @@
     <Compile Include="Connection\HANAConnetion.cs" />
     <Compile Include="Connection\SBOConnection.cs" />
     <Compile Include="Connection\WBConnection.cs" />
+    <Compile Include="Core\Config\AppFeatures.cs" />
     <Compile Include="Core\Config\SBOConfig.cs" />
     <Compile Include="Core\Config\WBConfig.cs" />
     <Compile Include="Core\Encryptions\Encryption.cs" />
+    <Compile Include="Core\Helpers\DataConversionHelper.cs" />
+    <Compile Include="Core\Helpers\ReportDataHelper.cs" />
+    <Compile Include="Core\Helpers\ResponsiveLayoutHelper.cs" />
+    <Compile Include="Core\Helpers\SplitTicketRowHelper.cs" />
+    <Compile Include="Core\Helpers\WatermarkHelper.cs" />
+    <Compile Include="Core\Models\DocQuotaInfo.cs" />
+    <Compile Include="Core\Models\DocumentLookupItem.cs" />
+    <Compile Include="Core\Models\PabeanData.cs" />
+    <Compile Include="Core\Models\PendingTicketInfo.cs" />
+    <Compile Include="Core\Models\TicketLookupItem.cs" />
+    <Compile Include="Core\Models\WeighInData.cs" />
+    <Compile Include="Core\Models\WeighOutData.cs" />
+    <Compile Include="Core\Repositories\HanaRepository.cs" />
+    <Compile Include="Core\Repositories\IHanaRepository.cs" />
+    <Compile Include="Core\Repositories\ISapRepository.cs" />
+    <Compile Include="Core\Repositories\SapRepository.cs" />
+    <Compile Include="Core\Services\AuthService.cs" />
+    <Compile Include="Core\Services\ConfigurationValidator.cs" />
+    <Compile Include="Core\Services\ConfigXmlService.cs" />
+    <Compile Include="Core\Services\DocumentLookupFilter.cs" />
+    <Compile Include="Core\Services\DocumentLookupService.cs" />
+    <Compile Include="Core\Services\ExcelExportService.cs" />
+    <Compile Include="Core\Services\PabeanService.cs" />
     <Compile Include="Core\Services\PabeanValidator.cs" />
+    <Compile Include="Core\Services\PrintService.cs" />
+    <Compile Include="Core\Services\SerialPortService.cs" />
+    <Compile Include="Core\Services\TicketLookupFilter.cs" />
     <Compile Include="Core\Services\WeighbridgeCalculator.cs" />
+    <Compile Include="Core\Services\WeighInService.cs" />
+    <Compile Include="Core\Services\WeighOutService.cs" />
     <Compile Include="Core\XML\XMLHandler.cs" />
     <Compile Include="FormSync.cs">
       <SubType>Form</SubType>
@@ -226,6 +255,12 @@
     <Compile Include="TimbangKeluarForm.Designer.cs">
       <DependentUpon>TimbangKeluarForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TimbangKeluarForm.Overflow.cs">
+      <DependentUpon>TimbangKeluarForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimbangKeluarForm.SplitTicket.cs">
+      <DependentUpon>TimbangKeluarForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TImbangKeluarUpdateGRPODOForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,6 +277,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WeighbridgeForm.Designer.cs">
+      <DependentUpon>WeighbridgeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WeighbridgeForm.SplitKontrak.cs">
       <DependentUpon>WeighbridgeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WeighStatusForm.cs">
@@ -292,6 +330,12 @@
     <EmbeddedResource Include="Assets\Report\WeighbridgeTiket.rpt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\Report\WeighbridgeTiket-Masuk.rpt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\Report\WeighbridgeTiket-Keluar.rpt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -314,6 +358,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\weighbridge.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\tanimas.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Refresh.ico" />

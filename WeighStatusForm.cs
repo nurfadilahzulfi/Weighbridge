@@ -21,15 +21,13 @@ namespace Weighbridge
 
         private void InitializeFormDialogStatus()
         {
-            // Form settings
             this.Text = "Weighbridge";
             this.Size = new Size(320, 150);
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.ControlBox = false;   // hide X button
+            this.ControlBox = false;
             this.TopMost = true;
 
-            // Icon label (emoji as icon)
             picIcon = new PictureBox()
             {
                 Text = "⚖️",
@@ -38,7 +36,6 @@ namespace Weighbridge
                 Location = new Point(20, 40),
                 AutoSize = false,
             };
-            // Use label instead for emoji
             var lblIcon = new Label()
             {
                 Text = "⚖️",
@@ -48,7 +45,6 @@ namespace Weighbridge
                 TextAlign = ContentAlignment.MiddleCenter
             };
 
-            // Message label
             lblMessage = new Label()
             {
                 Text = "Reading weight...",
@@ -62,7 +58,6 @@ namespace Weighbridge
             this.Controls.Add(lblMessage);
         }
 
-        // Call this to update message and auto-close
         public void ShowSuccess(string weight, int closeDelayMs = 1500)
         {
             lblMessage.Text = $"✅ Weight captured!\n{weight} KG";
@@ -90,9 +85,6 @@ namespace Weighbridge
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WeighStatusForm));
             this.SuspendLayout();
-            // 
-            // WeighStatusForm
-            // 
             this.ClientSize = new System.Drawing.Size(282, 253);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WeighStatusForm";

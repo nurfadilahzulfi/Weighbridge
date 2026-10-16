@@ -1,62 +1,191 @@
-﻿using OfficeOpenXml;
-using OfficeOpenXml.Style;
-using Sap.Data.Hana;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Weighbridge.Connection;
+using Weighbridge.Core.Models;
+using Weighbridge.Core.Repositories;
+using Weighbridge.Core.Services;
 
 namespace Weighbridge
 {
     public partial class ReportForm : Form
     {
-        HANAConnetion hanaConn = new HANAConnetion();
-
+        private readonly IHanaRepository _hanaRepo;
+        private readonly IExcelExportService _excelExportService;
         private DataTable _currentData = new DataTable();
 
-        public ReportForm()
+        private ListBox lstTicketSuggestions;
+        private List<TicketLookupItem> _cachedTickets = new List<TicketLookupItem>();
+        private bool _isSelectingTicketSuggestion = false;
+
+        public ReportForm() : this(new HanaRepository(), new ExcelExportService())
+        {
+        }
+
+        public ReportForm(IHanaRepository hanaRepo, IExcelExportService excelExportService)
         {
             InitializeComponent();
+            _hanaRepo = hanaRepo ?? new HanaRepository();
+            _excelExportService = excelExportService ?? new ExcelExportService();
+            InitializeTicketSuggestions();
         }
 
         private void ReportForm_Load(object sender, EventArgs e)
         {
-            loadDataCommodity();
+            LoadCommodityList();
 
             dtFrom.ShowCheckBox = true;
             dtFrom.Checked = false;
 
             dtTo.ShowCheckBox = true;
             dtTo.Checked = false;
+
+            MinimumSize = Size;
+            Weighbridge.Core.Helpers.WatermarkHelper.Apply(this);
+            Weighbridge.Core.Helpers.WatermarkHelper.ApplyToGrid(dvgReportData);
+
+            System.Threading.Tasks.Task.Run(() => LoadTicketLookup());
         }
 
-        private DataTable loadReportData(string noTiket, string noPolisi, string commodity, string fromDate, string toDate)
+        private void InitializeTicketSuggestions()
         {
-            DataTable dt = new DataTable();
-            string connectionString = hanaConn.HanaConnectionStrings(ConfigManager.sboConfig);
-
-            var connection = new HanaConnection(connectionString);
-
-            using (connection)
+            lstTicketSuggestions = new ListBox
             {
-                connection.Open();
+                Location = new Point(tbNoTiket.Left, tbNoTiket.Bottom + 2),
+                Size = new Size(560, 160),
+                Font = new Font("Segoe UI", 9F, FontStyle.Regular),
+                HorizontalScrollbar = true,
+                Visible = false
+            };
+            lstTicketSuggestions.Click += lstTicketSuggestions_Click;
+            lstTicketSuggestions.KeyDown += lstTicketSuggestions_KeyDown;
+            Controls.Add(lstTicketSuggestions);
+            lstTicketSuggestions.BringToFront();
 
-                string queryString = $"CALL SOL_SP_ADDON_WB_REPORT('{noTiket}', '{noPolisi}', '{commodity}', '{fromDate}', '{toDate}')";
+            tbNoTiket.TextChanged += tbNoTiket_TextChanged;
+            tbNoTiket.KeyDown += tbNoTiket_KeyDown;
+        }
 
-                using (var command = new HanaCommand(queryString, connection))
+        private bool LoadTicketLookup()
+        {
+            try
+            {
+                _cachedTickets = _hanaRepo.GetPendingTicketLookupList();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("LoadTicketLookup error: " + ex.Message);
+                return false;
+            }
+        }
+
+        private void tbNoTiket_TextChanged(object sender, EventArgs e)
+        {
+            if (_isSelectingTicketSuggestion) return;
+
+            string query = tbNoTiket.Text?.Trim() ?? "";
+            if (string.IsNullOrEmpty(query))
+            {
+                lstTicketSuggestions.Visible = false;
+                lstTicketSuggestions.Items.Clear();
+                return;
+            }
+
+            if ((_cachedTickets == null || _cachedTickets.Count == 0) && !LoadTicketLookup()) return;
+
+            var results = TicketLookupFilter.Filter(_cachedTickets, query);
+            lstTicketSuggestions.Items.Clear();
+            if (results != null && results.Count > 0)
+            {
+                foreach (var item in results)
+                    lstTicketSuggestions.Items.Add(item);
+                lstTicketSuggestions.BringToFront();
+                lstTicketSuggestions.Visible = true;
+            }
+            else
+            {
+                lstTicketSuggestions.Visible = false;
+            }
+        }
+
+        private void tbNoTiket_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down)
+            {
+                if (lstTicketSuggestions.Visible && lstTicketSuggestions.Items.Count > 0)
                 {
-                    HanaDataAdapter adapter = new HanaDataAdapter(command);
-                    adapter.Fill(dt);
+                    lstTicketSuggestions.Focus();
+                    lstTicketSuggestions.SelectedIndex = 0;
+                    e.Handled = true;
                 }
             }
-            return dt;
+            else if (e.KeyCode == Keys.Enter)
+            {
+                if (lstTicketSuggestions.Visible && lstTicketSuggestions.Items.Count > 0)
+                {
+                    var item = lstTicketSuggestions.SelectedItem ?? lstTicketSuggestions.Items[0];
+                    SelectTicketItem((TicketLookupItem)item);
+                }
+                else
+                {
+                    lstTicketSuggestions.Visible = false;
+                    btnSearchReport_Click(sender, e);
+                }
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                lstTicketSuggestions.Visible = false;
+                e.Handled = true;
+            }
+        }
+
+        private void lstTicketSuggestions_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && lstTicketSuggestions.SelectedItem != null)
+            {
+                SelectTicketItem((TicketLookupItem)lstTicketSuggestions.SelectedItem);
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                lstTicketSuggestions.Visible = false;
+                tbNoTiket.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void lstTicketSuggestions_Click(object sender, EventArgs e)
+        {
+            if (lstTicketSuggestions.SelectedItem != null)
+                SelectTicketItem((TicketLookupItem)lstTicketSuggestions.SelectedItem);
+        }
+
+        private void SelectTicketItem(TicketLookupItem item)
+        {
+            if (item == null) return;
+
+            _isSelectingTicketSuggestion = true;
+            tbNoTiket.Text = item.TiketNum;
+            lstTicketSuggestions.Visible = false;
+            lstTicketSuggestions.Items.Clear();
+            _isSelectingTicketSuggestion = false;
+
+            btnSearchReport_Click(this, EventArgs.Empty);
+        }
+
+        private void LoadCommodityList()
+        {
+            cmbCommodity.Items.Clear();
+            var commodities = _hanaRepo.GetCommodityList();
+            foreach (var item in commodities)
+            {
+                cmbCommodity.Items.Add(item);
+            }
         }
 
         private void btnSearchReport_Click(object sender, EventArgs e)
@@ -64,26 +193,23 @@ namespace Weighbridge
             string noTiket = tbNoTiket.Text;
             string noPolisi = tbNopol.Text;
             string commodity = cmbCommodity.Text;
-            string fromDate = dtTo.Checked ? dtFrom.Value.ToString("yyyyMMdd") : "";
+            string fromDate = dtFrom.Checked ? dtFrom.Value.ToString("yyyyMMdd") : "";
             string toDate = dtTo.Checked ? dtTo.Value.ToString("yyyyMMdd") : "";
 
             try
             {
                 Cursor = Cursors.WaitCursor;
-                _currentData = loadReportData(noTiket, noPolisi, commodity, fromDate, toDate);
+                _currentData = _hanaRepo.GetReportData(noTiket, noPolisi, commodity, fromDate, toDate);
+                Weighbridge.Core.Helpers.ReportDataHelper.ApplySplitBrutoPerKontrak(_currentData);
 
                 dvgReportData.DataSource = _currentData;
-
-                // Auto-size columns for readability
                 dvgReportData.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                 dvgReportData.ReadOnly = true;
                 dvgReportData.AllowUserToAddRows = false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"HANA connection error:\n\n{ex.Message}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"HANA connection error:\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -95,8 +221,7 @@ namespace Weighbridge
         {
             if (_currentData == null || _currentData.Rows.Count == 0)
             {
-                MessageBox.Show("No data to export. Load data first.",
-                    "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No data to export. Load data first.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -113,122 +238,21 @@ namespace Weighbridge
             try
             {
                 Cursor = Cursors.WaitCursor;
-                ExportToExcel(_currentData, dlg.FileName);
+                _excelExportService.ExportDataTableToExcel(_currentData, dlg.FileName);
 
-                if (MessageBox.Show("File saved. Open it now?",
-                        "Success", MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("File saved. Open it now?", "Success", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    System.Diagnostics.Process.Start(
-                        new System.Diagnostics.ProcessStartInfo(dlg.FileName)
-                        { UseShellExecute = true });
+                    Process.Start(new ProcessStartInfo(dlg.FileName) { UseShellExecute = true });
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Export error:\n\n{ex.Message}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Export error:\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 Cursor = Cursors.Default;
             }
         }
-
-        private void loadDataCommodity()
-        {
-            cmbCommodity.Items.Clear();
-
-            HANAConnetion hanaConn = new HANAConnetion();
-            string connectionString = hanaConn.HanaConnectionStrings(ConfigManager.sboConfig);
-
-            var connection = new HanaConnection(connectionString);
-
-            using (connection)
-            {
-                connection.Open();
-
-                string queryString = "CALL SOL_SP_ADDON_WB_COMMODITY_LIST()";
-
-                using (var command = new HanaCommand(queryString, connection))
-                {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            cmbCommodity.Items.Add(reader["COMMODITY"]);
-                        }
-                    }
-                }
-
-                connection.Close();
-            }
-        }
-
-        private static void ExportToExcel(DataTable dt, string filePath)
-        {
-            // Required for EPPlus 5+
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-
-            var package = new ExcelPackage();
-            var ws = package.Workbook.Worksheets.Add("Weighbridge Data");
-
-            // Header row
-            for (int col = 0; col < dt.Columns.Count; col++)
-            {
-                var cell = ws.Cells[1, col + 1];
-                cell.Value = dt.Columns[col].ColumnName;
-                cell.Style.Font.Bold = true;
-                cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                cell.Style.Fill.BackgroundColor.SetColor(
-                    System.Drawing.Color.FromArgb(68, 114, 196));
-                cell.Style.Font.Color.SetColor(System.Drawing.Color.White);
-                cell.Style.HorizontalAlignment =
-                    ExcelHorizontalAlignment.Center;
-            }
-
-            // Data rows
-            for (int row = 0; row < dt.Rows.Count; row++)
-            {
-                for (int col = 0; col < dt.Columns.Count; col++)
-                {
-                    var cell = ws.Cells[row + 2, col + 1];
-                    var value = dt.Rows[row][col];
-
-                    if (value == DBNull.Value)
-                        cell.Value = string.Empty;
-                    else if (value is DateTime dt2)
-                        cell.Value = dt2;
-                    else if (value is decimal || value is double ||
-                             value is float || value is int ||
-                             value is long)
-                        cell.Value = Convert.ToDouble(value);
-                    else
-                        cell.Value = value.ToString();
-
-                    // Zebra striping
-                    if (row % 2 == 1)
-                    {
-                        cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                        cell.Style.Fill.BackgroundColor.SetColor(
-                            System.Drawing.Color.FromArgb(242, 242, 242));
-                    }
-                }
-            }
-
-            // Freeze header, auto-filter, auto-fit
-            ws.View.FreezePanes(2, 1);
-            ws.Cells[ws.Dimension.Address].AutoFilter = true;
-            ws.Cells.AutoFitColumns();
-
-            // Footer
-            int footerRow = dt.Rows.Count + 3;
-            ws.Cells[footerRow, 1].Value =
-                $"Total rows: {dt.Rows.Count}  |  Exported: {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
-            ws.Cells[footerRow, 1].Style.Font.Italic = true;
-
-            package.SaveAs(new FileInfo(filePath));
-        }
-
     }
 }

@@ -9,26 +9,20 @@ namespace Weighbridge
 {
     internal static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Check if config.xml exists
             string configPath = ConfigManager.GetConfigPath();
 
             if (!File.Exists(configPath))
             {
-                // Config not found, show Configuration Form first
                 using (ConfigurationForm configForm = new ConfigurationForm(isFirstRun: true))
                 {
                     if (configForm.ShowDialog() != DialogResult.OK)
                     {
-                        // User closed without saving, exit app
                         MessageBox.Show("Configuration is required to run the application.",
                             "Setup Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
@@ -38,14 +32,22 @@ namespace Weighbridge
 
             ConfigManager.Load();
 
-            using (LoginForm loginForm = new LoginForm())
+            while (true)
             {
-                if (loginForm.ShowDialog() == DialogResult.OK)
+                using (LoginForm loginForm = new LoginForm())
                 {
-                    Application.Run(new FormSync()); // no need to pass role anymore
+                    if (loginForm.ShowDialog() != DialogResult.OK) return;
                 }
+
+                using (FormSync mainForm = new FormSync())
+                {
+                    Application.Run(mainForm);
+                    if (!mainForm.LogoutRequested) return;
+                }
+
+                SessionUser.username = null;
+                SessionUser.userRole = null;
             }
-            
         }
     }
 }

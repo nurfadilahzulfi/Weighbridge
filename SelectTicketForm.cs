@@ -12,7 +12,6 @@ namespace Weighbridge
 {
     public partial class SelectTicketForm : Form
     {
-        // This will hold the selected ticket data to pass back to the main form
         public DataRow SelectedTicket { get; private set; }
 
         public SelectTicketForm(DataTable ticketData)
@@ -50,7 +49,6 @@ namespace Weighbridge
 
         private void SelectRowAndClose(int rowIndex)
         {
-            // Get the underlying DataRow from the bound DataTable
             DataRowView drv = dgvTicketList.Rows[rowIndex].DataBoundItem as DataRowView;
             if (drv != null)
             {

@@ -1,17 +1,10 @@
-﻿
+
 namespace Weighbridge
 {
     partial class timbangMasukUpdateGRPODOForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -23,10 +16,6 @@ namespace Weighbridge
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -210,6 +199,7 @@ namespace Weighbridge
             // 
             // cbDocType
             // 
+            this.cbDocType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDocType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDocType.FormattingEnabled = true;
             this.cbDocType.Items.AddRange(new object[] {
@@ -717,13 +707,14 @@ namespace Weighbridge
             this.Controls.Add(this.lbJnsTruck);
             this.Controls.Add(this.lbDateTime);
             this.Controls.Add(this.gbWINKen);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            this.MaximizeBox = true;
+            this.MinimizeBox = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Name = "timbangMasukUpdateGRPODOForm";
-            this.Text = "Timbang Masuk Update GRPO & DO - PT Tanimas Resources International";
+            this.Text = "Timbang Masuk Update GRPO & DO - PT Tanimas Resources International • © 2026 Nur Fadilah Zulfi | Diah Fika Satrya";
             this.Load += new System.EventHandler(this.UpdateDeliveryOrderForm_Load);
             this.gbPabean.ResumeLayout(false);
             this.gbPabean.PerformLayout();

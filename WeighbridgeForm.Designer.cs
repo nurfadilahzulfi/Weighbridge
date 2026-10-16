@@ -3,15 +3,8 @@ namespace Weighbridge
 {
     partial class WeighbridgeForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
+        
         private System.ComponentModel.IContainer components = null;
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -23,10 +16,6 @@ namespace Weighbridge
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -34,6 +23,13 @@ namespace Weighbridge
             this.tbCommodity = new System.Windows.Forms.TextBox();
             this.lblCommodity = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
+            this.cbSplitKontrak = new System.Windows.Forms.CheckBox();
+            this.lblSisaKuotaK1Info = new System.Windows.Forms.Label();
+            this.lblNoKontrakK2 = new System.Windows.Forms.Label();
+            this.tbBaseDocK2 = new System.Windows.Forms.TextBox();
+            this.btnCariKontrakK2 = new System.Windows.Forms.Button();
+            this.lstSuggestionsK2 = new System.Windows.Forms.ListBox();
+            this.lblInfoSplitKalkulasi = new System.Windows.Forms.Label();
             this.tbContNo2 = new System.Windows.Forms.TextBox();
             this.lblContNo2 = new System.Windows.Forms.Label();
             this.tbContNo1 = new System.Windows.Forms.TextBox();
@@ -111,6 +107,7 @@ namespace Weighbridge
             this.lbWINBaseDoc = new System.Windows.Forms.Label();
             this.cbTransInt = new System.Windows.Forms.ComboBox();
             this.tbBaseDoc = new System.Windows.Forms.TextBox();
+            this.lstSearchSuggestions = new System.Windows.Forms.ListBox();
             this.gbWINKen.SuspendLayout();
             this.gbUjiLab.SuspendLayout();
             this.gbPabean.SuspendLayout();
@@ -147,6 +144,92 @@ namespace Weighbridge
             this.lblUsername.Size = new System.Drawing.Size(65, 15);
             this.lblUsername.TabIndex = 101;
             this.lblUsername.Text = "Username";
+            // 
+            // tbContNo2
+            // 
+            // 
+            // 
+            // lblNoKontrakK2
+            // 
+            this.lblNoKontrakK2.AutoSize = true;
+            this.lblNoKontrakK2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoKontrakK2.ForeColor = System.Drawing.Color.Black;
+            this.lblNoKontrakK2.Location = new System.Drawing.Point(18, 56);
+            this.lblNoKontrakK2.Name = "lblNoKontrakK2";
+            this.lblNoKontrakK2.Size = new System.Drawing.Size(75, 15);
+            this.lblNoKontrakK2.TabIndex = 71;
+            this.lblNoKontrakK2.Text = "Kontrak Ke-2";
+            // 
+            // cbSplitKontrak
+            // 
+            this.cbSplitKontrak.AutoSize = true;
+            this.cbSplitKontrak.Enabled = false;
+            this.cbSplitKontrak.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSplitKontrak.ForeColor = System.Drawing.Color.DarkOrange;
+            this.cbSplitKontrak.Location = new System.Drawing.Point(98, 55);
+            this.cbSplitKontrak.Name = "cbSplitKontrak";
+            this.cbSplitKontrak.Size = new System.Drawing.Size(95, 17);
+            this.cbSplitKontrak.TabIndex = 72;
+            this.cbSplitKontrak.Text = "Split Kontrak";
+            this.cbSplitKontrak.UseVisualStyleBackColor = true;
+            this.cbSplitKontrak.CheckedChanged += new System.EventHandler(this.cbSplitKontrak_CheckedChanged);
+            // 
+            // lblSisaKuotaK1Info
+            // 
+            this.lblSisaKuotaK1Info.AutoSize = true;
+            this.lblSisaKuotaK1Info.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSisaKuotaK1Info.ForeColor = System.Drawing.Color.DarkRed;
+            this.lblSisaKuotaK1Info.Location = new System.Drawing.Point(198, 56);
+            this.lblSisaKuotaK1Info.Name = "lblSisaKuotaK1Info";
+            this.lblSisaKuotaK1Info.Size = new System.Drawing.Size(0, 13);
+            this.lblSisaKuotaK1Info.TabIndex = 73;
+            // 
+            // tbBaseDocK2
+            // 
+            this.tbBaseDocK2.Enabled = false;
+            this.tbBaseDocK2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbBaseDocK2.Location = new System.Drawing.Point(20, 73);
+            this.tbBaseDocK2.Name = "tbBaseDocK2";
+            this.tbBaseDocK2.Size = new System.Drawing.Size(269, 24);
+            this.tbBaseDocK2.TabIndex = 74;
+            this.tbBaseDocK2.TextChanged += new System.EventHandler(this.tbBaseDocK2_TextChanged);
+            this.tbBaseDocK2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbBaseDocK2_KeyDown);
+            // 
+            // btnCariKontrakK2
+            // 
+            this.btnCariKontrakK2.Enabled = false;
+            this.btnCariKontrakK2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCariKontrakK2.Location = new System.Drawing.Point(295, 72);
+            this.btnCariKontrakK2.Name = "btnCariKontrakK2";
+            this.btnCariKontrakK2.Size = new System.Drawing.Size(75, 25);
+            this.btnCariKontrakK2.TabIndex = 75;
+            this.btnCariKontrakK2.Text = "🔄 Cari K2";
+            this.btnCariKontrakK2.UseVisualStyleBackColor = true;
+            this.btnCariKontrakK2.Click += new System.EventHandler(this.btnCariKontrakK2_Click);
+            // 
+            // lstSuggestionsK2
+            // 
+            this.lstSuggestionsK2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstSuggestionsK2.FormattingEnabled = true;
+            this.lstSuggestionsK2.HorizontalScrollbar = true;
+            this.lstSuggestionsK2.ItemHeight = 15;
+            this.lstSuggestionsK2.Location = new System.Drawing.Point(20, 98);
+            this.lstSuggestionsK2.Name = "lstSuggestionsK2";
+            this.lstSuggestionsK2.Size = new System.Drawing.Size(650, 160);
+            this.lstSuggestionsK2.TabIndex = 116;
+            this.lstSuggestionsK2.Visible = false;
+            this.lstSuggestionsK2.Click += new System.EventHandler(this.lstSuggestionsK2_Click);
+            this.lstSuggestionsK2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstSuggestionsK2_KeyDown);
+            // 
+            // lblInfoSplitKalkulasi
+            // 
+            this.lblInfoSplitKalkulasi.AutoSize = false;
+            this.lblInfoSplitKalkulasi.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfoSplitKalkulasi.ForeColor = System.Drawing.Color.DarkSlateBlue;
+            this.lblInfoSplitKalkulasi.Location = new System.Drawing.Point(423, 353);
+            this.lblInfoSplitKalkulasi.Name = "lblInfoSplitKalkulasi";
+            this.lblInfoSplitKalkulasi.Size = new System.Drawing.Size(364, 50);
+            this.lblInfoSplitKalkulasi.TabIndex = 117;
             // 
             // tbContNo2
             // 
@@ -488,7 +571,7 @@ namespace Weighbridge
             this.lblIMP.Name = "lblIMP";
             this.lblIMP.Size = new System.Drawing.Size(29, 15);
             this.lblIMP.TabIndex = 3;
-            this.lblIMP.Text = "IMP";
+            this.lblIMP.Text = "IV";
             // 
             // lblMoist
             // 
@@ -521,7 +604,7 @@ namespace Weighbridge
             // 
             // cbTMManual
             // 
-            this.cbTMManual.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.cbTMManual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbTMManual.AutoSize = true;
             this.cbTMManual.Enabled = false;
             this.cbTMManual.Location = new System.Drawing.Point(556, 56);
@@ -534,7 +617,7 @@ namespace Weighbridge
             // 
             // btnTimbangMasuk
             // 
-            this.btnTimbangMasuk.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnTimbangMasuk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTimbangMasuk.Enabled = false;
             this.btnTimbangMasuk.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTimbangMasuk.Location = new System.Drawing.Point(631, 48);
@@ -558,6 +641,7 @@ namespace Weighbridge
             this.tbQtyMasuk.Text = "0";
             this.tbQtyMasuk.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbQtyMasuk.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbQtyMasuk_KeyPress);
+            this.tbQtyMasuk.Leave += new System.EventHandler(this.tbQtyMasuk_Leave);
             // 
             // btnWBSave
             // 
@@ -689,7 +773,7 @@ namespace Weighbridge
             this.gbPabean.Controls.Add(this.lbTglDokPabean);
             this.gbPabean.Controls.Add(this.tbNomorAju);
             this.gbPabean.Controls.Add(this.lblNomorAju);
-            this.gbPabean.Location = new System.Drawing.Point(20, 106);
+            this.gbPabean.Location = new System.Drawing.Point(20, 194);
             this.gbPabean.Name = "gbPabean";
             this.gbPabean.Size = new System.Drawing.Size(380, 205);
             this.gbPabean.TabIndex = 18;
@@ -845,15 +929,17 @@ namespace Weighbridge
             this.lblValLineNumSAP.Text = "LineNumSAP";
             this.lblValLineNumSAP.Visible = false;
             // 
+            // 
             // btnRefreshData
             // 
-            this.btnRefreshData.Location = new System.Drawing.Point(327, 11);
+            this.btnRefreshData.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRefreshData.Location = new System.Drawing.Point(295, 27);
             this.btnRefreshData.Name = "btnRefreshData";
-            this.btnRefreshData.Size = new System.Drawing.Size(75, 23);
+            this.btnRefreshData.Size = new System.Drawing.Size(75, 25);
             this.btnRefreshData.TabIndex = 87;
-            this.btnRefreshData.Text = "Refresh";
+            this.btnRefreshData.Text = "🔄 Refresh";
             this.btnRefreshData.UseVisualStyleBackColor = true;
-            this.btnRefreshData.Visible = false;
+            this.btnRefreshData.Visible = true;
             this.btnRefreshData.Click += new System.EventHandler(this.btnRefreshData_Click);
             // 
             // lbValDocEntSAP
@@ -868,6 +954,7 @@ namespace Weighbridge
             // 
             // cbDocType
             // 
+            this.cbDocType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDocType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDocType.FormattingEnabled = true;
             this.cbDocType.Items.AddRange(new object[] {
@@ -880,9 +967,10 @@ namespace Weighbridge
             // 
             // btnCariBaseDoc
             // 
-            this.btnCariBaseDoc.Location = new System.Drawing.Point(302, 50);
+            this.btnCariBaseDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCariBaseDoc.Location = new System.Drawing.Point(373, 27);
             this.btnCariBaseDoc.Name = "btnCariBaseDoc";
-            this.btnCariBaseDoc.Size = new System.Drawing.Size(56, 20);
+            this.btnCariBaseDoc.Size = new System.Drawing.Size(50, 25);
             this.btnCariBaseDoc.TabIndex = 78;
             this.btnCariBaseDoc.Text = "Search";
             this.btnCariBaseDoc.UseVisualStyleBackColor = true;
@@ -891,7 +979,7 @@ namespace Weighbridge
             // lbTiketNum
             // 
             this.lbTiketNum.AutoSize = true;
-            this.lbTiketNum.Location = new System.Drawing.Point(18, 56);
+            this.lbTiketNum.Location = new System.Drawing.Point(18, 146);
             this.lbTiketNum.Name = "lbTiketNum";
             this.lbTiketNum.Size = new System.Drawing.Size(74, 15);
             this.lbTiketNum.TabIndex = 70;
@@ -901,10 +989,10 @@ namespace Weighbridge
             // 
             this.tbTiketNum.Enabled = false;
             this.tbTiketNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbTiketNum.Location = new System.Drawing.Point(20, 72);
+            this.tbTiketNum.Location = new System.Drawing.Point(20, 162);
             this.tbTiketNum.Name = "tbTiketNum";
-            this.tbTiketNum.Size = new System.Drawing.Size(268, 24);
-            this.tbTiketNum.TabIndex = 73;
+            this.tbTiketNum.Size = new System.Drawing.Size(104, 24);
+            this.tbTiketNum.TabIndex = 76;
             // 
             // lbWINBaseDoc
             // 
@@ -913,7 +1001,7 @@ namespace Weighbridge
             this.lbWINBaseDoc.Name = "lbWINBaseDoc";
             this.lbWINBaseDoc.Size = new System.Drawing.Size(95, 15);
             this.lbWINBaseDoc.TabIndex = 75;
-            this.lbWINBaseDoc.Text = "Base Document";
+            this.lbWINBaseDoc.Text = "No. Ref Vendor";
             // 
             // cbTransInt
             // 
@@ -932,6 +1020,21 @@ namespace Weighbridge
             this.tbBaseDoc.Size = new System.Drawing.Size(215, 24);
             this.tbBaseDoc.TabIndex = 77;
             this.tbBaseDoc.TextChanged += new System.EventHandler(this.tbBaseDoc_TextChanged);
+            this.tbBaseDoc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbBaseDoc_KeyDown);
+            // 
+            // lstSearchSuggestions
+            // 
+            this.lstSearchSuggestions.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstSearchSuggestions.FormattingEnabled = true;
+            this.lstSearchSuggestions.HorizontalScrollbar = true;
+            this.lstSearchSuggestions.ItemHeight = 15;
+            this.lstSearchSuggestions.Location = new System.Drawing.Point(74, 53);
+            this.lstSearchSuggestions.Name = "lstSearchSuggestions";
+            this.lstSearchSuggestions.Size = new System.Drawing.Size(650, 160);
+            this.lstSearchSuggestions.TabIndex = 115;
+            this.lstSearchSuggestions.Visible = false;
+            this.lstSearchSuggestions.Click += new System.EventHandler(this.lstSearchSuggestions_Click);
+            this.lstSearchSuggestions.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstSearchSuggestions_KeyDown);
             // 
             // WeighbridgeForm
             // 
@@ -939,6 +1042,14 @@ namespace Weighbridge
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(798, 628);
+            this.Controls.Add(this.lstSuggestionsK2);
+            this.Controls.Add(this.lstSearchSuggestions);
+            this.Controls.Add(this.lblInfoSplitKalkulasi);
+            this.Controls.Add(this.lblSisaKuotaK1Info);
+            this.Controls.Add(this.cbSplitKontrak);
+            this.Controls.Add(this.lblNoKontrakK2);
+            this.Controls.Add(this.tbBaseDocK2);
+            this.Controls.Add(this.btnCariKontrakK2);
             this.Controls.Add(this.cbTransInt);
             this.Controls.Add(this.lbWINBaseDoc);
             this.Controls.Add(this.tbTiketNum);
@@ -977,13 +1088,14 @@ namespace Weighbridge
             this.Controls.Add(this.lbWINSupir);
             this.Controls.Add(this.tbNamaSupir);
             this.Controls.Add(this.lbWINEksCod);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            this.MaximizeBox = true;
+            this.MinimizeBox = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Name = "WeighbridgeForm";
-            this.Text = "Timbang Masuk - PT Tanimas Resources International";
+            this.Text = "Timbang Masuk - PT Tanimas Resources International • © 2026 Nur Fadilah Zulfi | Diah Fika Satrya";
             this.Load += new System.EventHandler(this.WeighbridgeForm_Load);
             this.gbWINKen.ResumeLayout(false);
             this.gbWINKen.PerformLayout();
@@ -1078,5 +1190,13 @@ namespace Weighbridge
         private System.Windows.Forms.ComboBox cbTransInt;
         private System.Windows.Forms.TextBox tbBaseSAP;
         private System.Windows.Forms.TextBox tbBaseDoc;
+        private System.Windows.Forms.ListBox lstSearchSuggestions;
+        private System.Windows.Forms.CheckBox cbSplitKontrak;
+        private System.Windows.Forms.Label lblSisaKuotaK1Info;
+        private System.Windows.Forms.Label lblNoKontrakK2;
+        private System.Windows.Forms.TextBox tbBaseDocK2;
+        private System.Windows.Forms.Button btnCariKontrakK2;
+        private System.Windows.Forms.ListBox lstSuggestionsK2;
+        private System.Windows.Forms.Label lblInfoSplitKalkulasi;
     }
 }

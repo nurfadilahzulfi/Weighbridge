@@ -1,17 +1,10 @@
-﻿
+
 namespace Weighbridge
 {
     partial class TimbangKeluarForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,11 +15,6 @@ namespace Weighbridge
         }
 
         #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -77,6 +65,7 @@ namespace Weighbridge
             this.lbTiketNum = new System.Windows.Forms.Label();
             this.lbWINBaseDoc = new System.Windows.Forms.Label();
             this.tbTiketNum = new System.Windows.Forms.TextBox();
+            this.lstTicketSuggestions = new System.Windows.Forms.ListBox();
             this.tbNopol = new System.Windows.Forms.TextBox();
             this.tbSIMSupir = new System.Windows.Forms.TextBox();
             this.lbWINNopol = new System.Windows.Forms.Label();
@@ -124,6 +113,7 @@ namespace Weighbridge
             // 
             // cbDocType
             // 
+            this.cbDocType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDocType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDocType.FormattingEnabled = true;
             this.cbDocType.Items.AddRange(new object[] {
@@ -258,7 +248,7 @@ namespace Weighbridge
             this.lblIMP.Name = "lblIMP";
             this.lblIMP.Size = new System.Drawing.Size(29, 15);
             this.lblIMP.TabIndex = 3;
-            this.lblIMP.Text = "IMP";
+            this.lblIMP.Text = "IV";
             // 
             // lblMoist
             // 
@@ -542,7 +532,7 @@ namespace Weighbridge
             this.cbTKManual.TabIndex = 12;
             this.cbTKManual.Text = "Manual";
             this.cbTKManual.UseVisualStyleBackColor = true;
-            this.cbTKManual.Click += new System.EventHandler(this.cbTKManual_CheckedChanged);
+            this.cbTKManual.CheckedChanged += new System.EventHandler(this.cbTKManual_CheckedChanged);
             // 
             // tbQtyNetto
             // 
@@ -609,7 +599,7 @@ namespace Weighbridge
             this.lbWINBaseDoc.Name = "lbWINBaseDoc";
             this.lbWINBaseDoc.Size = new System.Drawing.Size(95, 15);
             this.lbWINBaseDoc.TabIndex = 110;
-            this.lbWINBaseDoc.Text = "Base Document";
+            this.lbWINBaseDoc.Text = "No. Ref Vendor";
             // 
             // tbTiketNum
             // 
@@ -618,6 +608,22 @@ namespace Weighbridge
             this.tbTiketNum.Name = "tbTiketNum";
             this.tbTiketNum.Size = new System.Drawing.Size(268, 24);
             this.tbTiketNum.TabIndex = 108;
+            this.tbTiketNum.TextChanged += new System.EventHandler(this.tbTiketNum_TextChanged);
+            this.tbTiketNum.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbTiketNum_KeyDown);
+            // 
+            // lstTicketSuggestions
+            // 
+            this.lstTicketSuggestions.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstTicketSuggestions.FormattingEnabled = true;
+            this.lstTicketSuggestions.HorizontalScrollbar = true;
+            this.lstTicketSuggestions.ItemHeight = 15;
+            this.lstTicketSuggestions.Location = new System.Drawing.Point(25, 100);
+            this.lstTicketSuggestions.Name = "lstTicketSuggestions";
+            this.lstTicketSuggestions.Size = new System.Drawing.Size(580, 160);
+            this.lstTicketSuggestions.TabIndex = 114;
+            this.lstTicketSuggestions.Visible = false;
+            this.lstTicketSuggestions.Click += new System.EventHandler(this.lstTicketSuggestions_Click);
+            this.lstTicketSuggestions.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstTicketSuggestions_KeyDown);
             // 
             // tbNopol
             // 
@@ -895,7 +901,7 @@ namespace Weighbridge
             this.btnRefreshData.TabIndex = 122;
             this.btnRefreshData.Text = "Refresh";
             this.btnRefreshData.UseVisualStyleBackColor = true;
-            this.btnRefreshData.Visible = false;
+            this.btnRefreshData.Visible = true;
             this.btnRefreshData.Click += new System.EventHandler(this.btnRefreshData_Click);
             // 
             // lbValDocEntSAP
@@ -995,6 +1001,7 @@ namespace Weighbridge
             this.Controls.Add(this.lbTiketNum);
             this.Controls.Add(this.lbWINBaseDoc);
             this.Controls.Add(this.tbTiketNum);
+            this.Controls.Add(this.lstTicketSuggestions);
             this.Controls.Add(this.tbNopol);
             this.Controls.Add(this.tbSIMSupir);
             this.Controls.Add(this.lbWINNopol);
@@ -1020,12 +1027,13 @@ namespace Weighbridge
             this.Controls.Add(this.lbJnsTruck);
             this.Controls.Add(this.tbDONo);
             this.Controls.Add(this.lblDONo);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            this.MaximizeBox = true;
+            this.MinimizeBox = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Name = "TimbangKeluarForm";
-            this.Text = "Timbang Keluar - PT Tanimas Resources International";
+            this.Text = "Timbang Keluar - PT Tanimas Resources International • © 2026 Nur Fadilah Zulfi | Diah Fika Satrya";
             this.Load += new System.EventHandler(this.TImbangKeluarForm_Load);
             this.gbWINKen.ResumeLayout(false);
             this.gbWINKen.PerformLayout();
@@ -1078,6 +1086,7 @@ namespace Weighbridge
         private System.Windows.Forms.Label lbTiketNum;
         private System.Windows.Forms.Label lbWINBaseDoc;
         private System.Windows.Forms.TextBox tbTiketNum;
+        private System.Windows.Forms.ListBox lstTicketSuggestions;
         private System.Windows.Forms.TextBox tbNopol;
         private System.Windows.Forms.TextBox tbSIMSupir;
         private System.Windows.Forms.Label lbWINNopol;

@@ -1,17 +1,9 @@
-﻿
+
 namespace Weighbridge
 {
     partial class SelectTicketForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -23,22 +15,19 @@ namespace Weighbridge
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectTicketForm));
             this.dgvTicketList = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTicketList)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dgvTicketList
-            // 
+            
             this.dgvTicketList.AllowUserToAddRows = false;
             this.dgvTicketList.AllowUserToDeleteRows = false;
             this.dgvTicketList.AllowUserToOrderColumns = true;
+            this.dgvTicketList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTicketList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTicketList.Location = new System.Drawing.Point(13, 13);
             this.dgvTicketList.Name = "dgvTicketList";
@@ -54,8 +43,11 @@ namespace Weighbridge
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 327);
             this.Controls.Add(this.dgvTicketList);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = true;
+            this.MinimizeBox = true;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Name = "SelectTicketForm";
             this.Text = "List Tiket Weighbridge - PT Tanimas Resources International";
             this.Load += new System.EventHandler(this.SelectTicketForm_Load);
