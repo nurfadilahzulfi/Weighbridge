@@ -30,3 +30,10 @@ dev_rfc.log
 **/dev_rfc.log
 Config.xml
 **/Config.xml
+
+## Hasil test, backup template, dan folder aset lama (tidak dipakai csproj)
+TestResults/
+*.trx
+Assets/Report/_backup/
+Assets1/
+Weighbridge Tiket_rev.rpt
