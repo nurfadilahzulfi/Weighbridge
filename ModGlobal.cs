@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Weighbridge
 {
+    [Obsolete("ModGlobal is redundant and deprecated. Use WBConfig and SBOConfig instead.")]
     public class ModGlobal
     {
         public int readTimeout { get; set; }

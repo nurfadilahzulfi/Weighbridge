@@ -9,6 +9,7 @@ namespace Weighbridge.Connection
 {
     public class HANAConnetion
     {
+        [Obsolete("Use HanaConnectionStrings(SBOConfig) instead.")]
         public string HanaConnectionString(ModGlobal modGlobal)
         {
             string server = modGlobal.serverName ?? "";

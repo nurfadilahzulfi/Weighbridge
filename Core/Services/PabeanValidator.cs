@@ -29,8 +29,6 @@ namespace Weighbridge.Core.Services
                     ErrorMessage = "Nomor Dokumen Pabean wajib diisi!"
                 };
             }
-
-            // In WinForms DateTimePicker, when custom format is set to " ", it represents an unselected/cleared date
             if (!hasTanggal || customDateFormat == " ")
             {
                 return new PabeanValidationResult

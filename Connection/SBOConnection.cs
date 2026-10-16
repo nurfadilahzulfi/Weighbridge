@@ -1,4 +1,4 @@
-﻿using SAPbobsCOM;
+using SAPbobsCOM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +13,12 @@ namespace Weighbridge
     {
         public Company oCompany = new Company();
 
+        [Obsolete("Use connectSBOS(SBOConfig) instead.")]
         public void connectSBO(ModGlobal modGlobal)
         {
             if (!oCompany.Connected)
             {
                 oCompany = new Company();
-                //oCompany.LicenseServer = "";
                 oCompany.Server = modGlobal.serverName;
                 oCompany.DbServerType = BoDataServerTypes.dst_HANADB;
                 oCompany.CompanyDB = modGlobal.database;
@@ -26,7 +26,6 @@ namespace Weighbridge
                 oCompany.DbPassword = modGlobal.databasePassword;
                 oCompany.UserName = modGlobal.sboUsername;
                 oCompany.Password = modGlobal.sboPassword;
-                //oCompany.language = BoSuppLangs.ln_English;
 
                 if (oCompany.Connect() != 0)
                 {
@@ -40,7 +39,6 @@ namespace Weighbridge
             if (!oCompany.Connected)
             {
                 oCompany = new Company();
-                //oCompany.LicenseServer = "";
                 oCompany.Server = config.serverName;
                 oCompany.DbServerType = BoDataServerTypes.dst_HANADB;
                 oCompany.CompanyDB = config.database;
@@ -48,7 +46,6 @@ namespace Weighbridge
                 oCompany.DbPassword = config.databasePassword;
                 oCompany.UserName = config.sboUsername;
                 oCompany.Password = config.sboPassword;
-                //oCompany.language = BoSuppLangs.ln_English;
 
                 if (oCompany.Connect() != 0)
                 {
@@ -57,12 +54,12 @@ namespace Weighbridge
             }
         }
 
+        [Obsolete("Use connectionSBOS(SBOConfig) instead.")]
         public bool connectionSBO(ModGlobal modGlobal)
         {
             if (!oCompany.Connected)
             {
                 oCompany = new Company();
-                //oCompany.LicenseServer = "";
                 oCompany.Server = modGlobal.serverName;
                 oCompany.DbServerType = BoDataServerTypes.dst_HANADB;
                 oCompany.CompanyDB = modGlobal.database;
@@ -70,7 +67,6 @@ namespace Weighbridge
                 oCompany.DbPassword = modGlobal.databasePassword;
                 oCompany.UserName = modGlobal.sboUsername;
                 oCompany.Password = modGlobal.sboPassword;
-                //oCompany.language = BoSuppLangs.ln_English;
 
                 if (oCompany.Connect() != 0)
                 {
