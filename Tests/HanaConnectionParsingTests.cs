@@ -81,6 +81,7 @@ namespace Weighbridge.Tests
             Assert.IsTrue(connStr.Contains("server=192.168.1.50:30015"));
         }
 
+#pragma warning disable CS0618
         [TestMethod]
         public void HanaConnectionString_ModGlobalLegacyInstancePort_TranslatesToSqlPort30015()
         {
@@ -118,5 +119,6 @@ namespace Weighbridge.Tests
             Assert.IsTrue(connStr.Contains("server=182.160.55.95:65488"));
             Assert.IsTrue(connStr.Contains("currentSchema=TANIMASLIVE"));
         }
+#pragma warning restore CS0618
     }
 }

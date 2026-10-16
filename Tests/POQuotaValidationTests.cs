@@ -99,5 +99,39 @@ namespace Weighbridge.Tests
             Assert.IsTrue(result.IsExceeded);
             Assert.AreEqual(grossWeight, result.ExceedAmount);
         }
+
+        [TestMethod]
+        public void CheckPOQuota_SmallRemainingQuota_FlagsExceededAndInvalid()
+        {
+            double grossWeight = 40000; // 40 ton
+            double remainingQuota = 420; // 420 kg
+
+            var result = WeighbridgeCalculator.CheckPOQuota(grossWeight, remainingQuota);
+
+            Assert.IsFalse(result.IsValid, "Berat melebihi sisa kuota kecil harus invalid.");
+            Assert.IsTrue(result.IsExceeded);
+            Assert.AreEqual(39580, result.ExceedAmount);
+            Assert.IsTrue(result.Message.Contains("40,000 kg") || result.Message.Contains("40.000 kg"));
+            Assert.IsTrue(result.Message.Contains("420 kg"));
+        }
+
+        [TestMethod]
+        public void POQuotaThreshold_Below55000Kg_IsFlaggedAsInsufficient()
+        {
+            double remainingQuota = 54999;
+            bool isInsufficient = remainingQuota < DocumentLookupFilter.MinimumPOQuotaKg;
+
+            Assert.IsTrue(isInsufficient, "Sisa kuota 54.999 kg harus dianggap tidak mencukupi batas minimum 55.000 kg.");
+        }
+
+        [TestMethod]
+        public void POQuotaThreshold_AtOrAbove55000Kg_IsSufficient()
+        {
+            double remainingQuotaExact = 55000;
+            double remainingQuotaAbove = 65000;
+
+            Assert.IsFalse(remainingQuotaExact < DocumentLookupFilter.MinimumPOQuotaKg, "Sisa kuota 55.000 kg memenuhi batas minimum.");
+            Assert.IsFalse(remainingQuotaAbove < DocumentLookupFilter.MinimumPOQuotaKg, "Sisa kuota 65.000 kg memenuhi batas minimum.");
+        }
     }
 }

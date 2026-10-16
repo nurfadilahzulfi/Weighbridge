@@ -42,6 +42,20 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.Engine.13.0.4003\lib\net40\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>..\packages\CrystalReports.Shared.13.0.4003\lib\net40\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="Sap.Data.Hana.v4.5, Version=2.20.22.0, Culture=neutral, PublicKeyToken=0326b8ea63db4bc4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\sap\hdbclient\ado.net\v4.5\Sap.Data.Hana.v4.5.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Weighbridge.csproj">
@@ -51,11 +65,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PabeanValidatorTests.cs" />
+    <Compile Include="TimbangKeluarSplitGRPOTests.cs" />
     <Compile Include="WeighbridgeCalculatorTests.cs" />
+    <Compile Include="KebunDataValidationTests.cs" />
+    <Compile Include="PrintColumnMappingTests.cs" />
+    <Compile Include="SplitScenarioTests.cs" />
+    <Compile Include="MultiTruckQuotaTests.cs" />
     <Compile Include="POQuotaValidationTests.cs" />
     <Compile Include="SplitContractAllocationTests.cs" />
     <Compile Include="EncryptionTests.cs" />
     <Compile Include="HanaConnectionParsingTests.cs" />
+    <Compile Include="DocumentLookupFilterTests.cs" />
+    <Compile Include="TicketLookupFilterTests.cs" />
+    <Compile Include="ConfigManagerTests.cs" />
+    <Compile Include="SessionRolePermissionTests.cs" />
+    <Compile Include="WeighbridgeExtendedFlowTests.cs" />
+    <Compile Include="SyncAndReprintFlowTests.cs" />
+    <Compile Include="RefactoredComponentsTests.cs" />
+    <Compile Include="ResponsiveLayoutHelperTests.cs" />
+    <Compile Include="SplitSpbWorkedExampleTests.cs" />
+    <Compile Include="WatermarkHelperTests.cs" />
+    <Compile Include="PrintSlipNoteTests.cs" />
+    <Compile Include="ReportDataHelperTests.cs" />
+    <Compile Include="ContractLinesTests.cs" />
+    <Compile Include="SplitThreeContractTests.cs" />
+    <Compile Include="GoLiveCompatibilityTests.cs" />
+    <Compile Include="EffectiveQuotaPendingTruckTests.cs" />
+    <Compile Include="CPKOFlowTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
